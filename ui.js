@@ -3,7 +3,7 @@ class UI {
         this.profile = document.getElementById('profile');
     }
 
-    showProfile(user) {
+    showProfileOnUserFound(user) {
         this.profile.innerHTML = `
         <div class="card card-body mb-3">
           <div class="row">
@@ -32,8 +32,31 @@ class UI {
         `;
     }
     
-    clearProfile() {
+    clearProfileOnEmptySearchInput() {
         this.profile.innerHTML = '';
+    }
+
+    showAlertOnNoUserFound(message, className) {
+        this.clearAlert();
+
+        const div = document.createElement('div');
+        div.className = className;
+        div.appendChild(document.createTextNode(message));
+        
+        const container = document.querySelector('.searchContainer');
+        const search = document.querySelector('.search');
+        container.insertBefore(div, search);
+
+        setTimeout(() => {
+            this.clearAlert()
+        }, 3000);
+    }
+
+    clearAlert() {
+        const currentAlert = document.querySelector('.alert');
+        if (currentAlert) {
+            currentAlert.remove();
+        }
     }
 
 }
